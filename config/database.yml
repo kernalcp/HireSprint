@@ -20,8 +20,11 @@ test:
   port:     5432
 
 production:
-  primary:
+  primary: &primary_production
     url: <%= ENV["DATABASE_URL"] %>
-
+  cache:
+    url: <%= ENV["DATABASE_URL"] %>
+  queue:
+    url: <%= ENV["DATABASE_URL"] %>
   cable:
     url: <%= ENV["DATABASE_URL"] %>
