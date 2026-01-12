@@ -95,6 +95,49 @@ bundle exec sidekiq
 rails server
 ```
 
+🔐 Rails Credentials Setup (Required)
+
+HireSprint uses Rails Encrypted Credentials to securely store sensitive data.
+If you are running this project locally for the first time, you must set up credentials.
+
+⚠️ Important
+
+If you clone this repository, the encrypted credentials file may already exist but cannot be decrypted without a matching key. This is expected and secure behavior.
+
+✅ First-Time Setup (Local Development)
+# Remove any existing encrypted credentials (local only)
+```bash
+rm config/credentials.yml.enc
+```
+
+# Create new credentials and encryption key
+```bash
+EDITOR="nano" bin/rails credentials:edit
+```
+
+This will:
+
+1. Generate a new config/master.key
+2. Create a fresh config/credentials.yml.enc
+3. Open the credentials file for editing
+
+🔐 Do NOT commit config/master.key
+Save it in a password manager if needed.
+
+Save in nano:
+
+* Ctrl + O → Enter
+* Ctrl + X
+
+ℹ️ Note: HireSprint primarily stores sensitive values per user inside the database using Rails encryption, so credentials are optional for basic usage.
+
+✅ Verify Credentials
+```bash
+bin/rails runner "puts Rails.application.credentials.config.inspect"
+```
+
+You should see a hash, not an error.
+
 Visit: [http://localhost:3000](http://localhost:3000)
 
 ---
